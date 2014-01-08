@@ -7,8 +7,8 @@
 
 #
 # File structure:
-#   /var/spool/itipsd/in/<ldomain>/<luser>/<rdomain>/<ruser>/<uid>
-#   /var/spool/itipsd/out/<ldomain>/<luser>/<uid>
+#   /var/spool/itipsd/in/<ldomain>/<luser>/<rdomain>/<ruser>/<uid>/text/calendar
+#   /var/spool/itipsd/out/<ldomain>/<luser>/<uid>/text/calendar
 #   /var/spool/itipsd/free/<ldomain>/<luser>.free
 #
 # Locking convention:
@@ -41,8 +41,8 @@ from signal import signal, pause, SIGINT, SIGUSR1, SIGUSR2
 from sys import exit
 
 
-recver = FileRecver (recversockcoords, '/var/spool/itipsd/in',  hosted)
-sender = FileSender (sendersockcoords, '/var/spool/itipsd/out', hosted)
+recver = FileRecver (recversockcoords, '/var/spool/itipsd/in',  hosted, 'text/calendar')
+sender = FileSender (sendersockcoords, '/var/spool/itipsd/out', hosted, 'text/calendar')
 
 def recverwakeup (signum, frame):
 	#DEBUG# print 'Waking up recipient for a reload'

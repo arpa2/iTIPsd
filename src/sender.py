@@ -29,12 +29,13 @@ from time import time, sleep
 
 class FileSender (Thread):
 
-	def __init__ (self, coords, spool, hosted):
+	def __init__ (self, coords, spool, hosted, mimetp):
 		Thread.__init__ (self)
 		self.setDaemon (False)
 		self.coords = coords
 		self.spool = spool
 		self.hosted = hosted
+		self.mimetp = mimetp
 		self.looping = True
 		self.queue = { }
 		self.timer = Event ()
@@ -89,7 +90,7 @@ class FileSender (Thread):
 		for indom in listdir (self.spool):
 			for inusr in listdir (self.spool + slash + indom):
 				for inuid in listdir (self.spool + slash + indom + slash + inusr):
-					qit = self.spool + slash + indom + slash + inusr + slash + inuid
+					qit = self.spool + slash + indom + slash + inusr + slash + inuid + self.mimetp + slash
 					try:
 						nxt = self.nextacttime (qit)
 						if nxt < self.queue [qit]:

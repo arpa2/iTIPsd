@@ -12,12 +12,13 @@ from os import sep as slash
 
 class FileRecver (Thread):
 
-	def __init__ (self, coords, spool, hosted):
+	def __init__ (self, coords, spool, hosted, mimetp):
 		Thread.__init__ (self)
 		self.setDaemon (False)
 		self.coords = coords
 		self.spool = spool
 		self.hosted = hosted
+		self.mimetp = mimetp
 		self.looping = True
 		self.srvsox = socket (AF_INET, SOCK_STREAM, 0)
 		self.srvsox.setblocking (0)
@@ -40,7 +41,7 @@ class FileRecver (Thread):
 				#TODO# Check remote as having a listed SRV record
 				localid = 'rick@example.com' #TODO#FIXED#
 				remotid = 'lutz@example.net' #TODO#FIXED#
-				path = self.spool + slash + 'example.com' + slash + 'rick' + slash #TODO#FIXED#
+				path = self.spool + slash + 'example.com' + slash + 'rick' + slash + self.mimetp + slash #TODO#FIXED#
 				if not access (path, W_OK):
 					makedirs (path)
 				self.recv_file (sox, path, localid, remotid)
