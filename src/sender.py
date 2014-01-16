@@ -90,7 +90,7 @@ class FileSender (Thread):
 		for indom in listdir (self.spool):
 			for inusr in listdir (self.spool + slash + indom):
 				for inuid in listdir (self.spool + slash + indom + slash + inusr):
-					qit = self.spool + slash + indom + slash + inusr + slash + inuid + self.mimetp + slash
+					qit = self.spool + slash + indom + slash + inusr + slash + inuid + slash + self.mimetp + slash
 					try:
 						nxt = self.nextacttime (qit)
 						if nxt < self.queue [qit]:
