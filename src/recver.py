@@ -79,7 +79,7 @@ class FileRecver (Thread):
 		print 'FileRecver.recv_file should be overridden in a subclass'
 		dta = sox.recv (65536)
 		tgt = path + str (time ())
-		fil = open (tgt, 'wc')
+		fil = open (tgt, 'w')
 		fil.write (dta)
 		fil.close ()
 		print 'Written data to ' + tgt
