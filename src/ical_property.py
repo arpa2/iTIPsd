@@ -9,9 +9,12 @@ class Property(object):
     """
     """
 
-    name = ""
+    name = ''
     valuetype = ()# one from Value subclass
-    #NO# Those are defined in Component subclasses already:
+    value = ''
+    #TODO# Determine if below belongs here or @component
+    restriction = {}
+    #Those are defined in Component subclasses already:
     #required_only_once = () # PRODID, VERSION, V*-component
     #optional_only_once = ()
     #optional_multiple_times = ()
@@ -29,6 +32,10 @@ class Property(object):
         #TODO#
         pass
 
+    def is_valid(self):
+        """ Logic to verify validity of a property
+        """
+        pass
 
 
 # subclasses
@@ -39,15 +46,22 @@ class Property(object):
 #TODO# AlarmComponentProperty, etc
 class Calscale(Property):
     """ RFC 5545: Calendar Scale 
+    This property defines the calendar scale used for the calendar information
+    specified in the iCalendar object.
     """
     name = 'CALSCALE'
     valuetype = value.Text()
+    value = 'GREGORIAN'
+    restriction = {}
 
 class Method(Property):
     """ RFC 5545: Method
+    This property defines the iCalendar object method associated with the
+    calendar object.
     """
     name = 'METHOD'
     valuetype = value.Text()
+    #TODO# Define methods in separate .py according to RFC5546
 
 class Prodid(Property):
     """ RFC 5545: Product Identifier
@@ -358,3 +372,8 @@ class RequestStatus(Property):
     name = 'REQUEST-STATUS'
     valuetype = value.Text()
 
+###
+# Some tests here
+test = RequestStatus()
+print test.name
+print test.is_valid()

@@ -16,7 +16,7 @@ class Altrep(Parameter):
     pass
 
 class Cn(Parameter):
-    """ RFC 5545: Common name 
+    """ RFC 5545: Common name
     """
     #TODO#
     pass
