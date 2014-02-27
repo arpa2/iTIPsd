@@ -14,12 +14,13 @@ calstore = iCalStream()
 # Load ics-file content into instance
 calstore.read_ics(calfile)
 # How many calendars does the file contain?
-print calstore.calenderset.__len__()
+print calstore.calendarset.__len__()
 # Print certain component
 calstore.get_component('vevent')
 # Print value of property only
-#print calstore.calenderset[0]['uid']
-
+#print calstore.calendarset[0]['uid']
+for lol in calstore:
+    print lol
 # Address subcomponents
-#activecal = calstore.calenderset[0]
+#activecal = calstore.calendarset[0]
 #print activecal['prodid']

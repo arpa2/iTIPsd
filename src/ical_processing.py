@@ -19,12 +19,17 @@ class iCalStream(object):
     """Object containing a set of iCalender objects
     """
     username = ''
-    calenderset = []  # Will store Calender objects
+    calendarset = []  # Will store Calender objects
 
     def __init__(self, *args, **kwargs):
         """Set keys initial stream properties.
         """
         self.username = self._get_username()
+
+    def __iter__(self):
+        """Returns iterable component list
+        """
+        return iter(self.calendarset)
 
     def read_ics(self, filepath):
         """Parse .ics file and add calendar objects to list.
@@ -32,12 +37,12 @@ class iCalStream(object):
         #TODO# raise error if file doesn't exist
         # Parse .ics file
         icsfile = open(filepath, 'rb')
-        self.calenderset = Calendar.from_ical(  # create list-object
+        self.calendarset = Calendar.from_ical(  # create list-object
             icsfile.read(),
             multiple=True
         )
-        #debug#print self.calenderset
-        #debug#print type(self.calenderset)
+        #debug#print self.calendarset
+        #debug#print type(self.calendarset)
         icsfile.close
 
     def raw_data(self):
@@ -60,15 +65,15 @@ class iCalStream(object):
         """Returns requested Component object
         """
         #TODO# create component-object, fill it, return it
-        for cal in self.calenderset:
+        for cal in self.calendarset:
             print type(cal)
-#            self._recurse_component(cal)
+            self._recurse_component(cal)
         #    print cal.name
         #    #print cal.walk()
-            for component in cal:
-                print self._recurse_component(component)
+#            for component in cal:
+#                print self._recurse_component(component)
 #                print component
-        #        print "\t" + component, self.calenderset[0][component]
+        #        print "\t" + component, self.calendarset[0][component]
 #            for subcomp in cal.subcomponents:
 #                for lol in subcomp:
 #                    print lol
