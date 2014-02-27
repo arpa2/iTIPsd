@@ -19,7 +19,7 @@ class iCalStream(object):
     """Object containing a set of iCalender objects
     """
     username = ''
-    calenderset = {}  # Will store Calender objects
+    calenderset = []  # Will store Calender objects
 
     def __init__(self, *args, **kwargs):
         """Set keys initial stream properties.
@@ -36,6 +36,8 @@ class iCalStream(object):
             icsfile.read(),
             multiple=True
         )
+        #debug#print self.calenderset
+        #debug#print type(self.calenderset)
         icsfile.close
 
     def raw_data(self):
@@ -46,20 +48,25 @@ class iCalStream(object):
     def _recurse_component(self, component):
         """
         """
+        result = []
+        if component is None or component == "VERSION":
+            print "Got a match!"
+            result.append(component)
         for subcomponent in component:
             print subcomponent
-            print "Infinite recursion in line 52"
-#            self._recurse_component(subcomponent)
+        return result
 
     def get_component(self, comp):
         """Returns requested Component object
         """
         #TODO# create component-object, fill it, return it
         for cal in self.calenderset:
-            self._recurse_component(cal)
+            print type(cal)
+#            self._recurse_component(cal)
         #    print cal.name
         #    #print cal.walk()
-        #    for component in cal:
+            for component in cal:
+                print self._recurse_component(component)
 #                print component
         #        print "\t" + component, self.calenderset[0][component]
 #            for subcomp in cal.subcomponents:
