@@ -12,7 +12,6 @@ if not print $parameter and conflict
 """
 
 from icalendar import Calendar
-#import os
 
 
 class iCalStream(object):
@@ -25,13 +24,13 @@ class iCalStream(object):
         """
         self.username = self._get_username()
 
-    def __iter__(self):
-        """Returns iterable component list
-        """
-        return iter(self.calendarset)
+#    def __iter__(self):
+#        """Returns iterable component list
+#        """
+#        return iter(self.calendarset)
 
     def read_ics(self, filepath):
-        """Parse .ics file and add calendar objects to list.
+        """Parse .ics file and fill iCalStream with calender objects.
         """
         #TODO# raise error if file doesn't exist
         # Parse .ics file
@@ -44,26 +43,10 @@ class iCalStream(object):
         #debug#print type(self.calendarset)
         icsfile.close
 
-    def raw_data(self):
-        """
-        """
-        self.walk()
-
-    def _recurse_component(self, component):
-        """
-        """
-        result = []
-        if component is None or component == "VERSION":
-            print "Got a match!"
-            result.append(component)
-        for subcomponent in component:
-            print subcomponent
-        return result
-
     def get_component(self, comp, prop, searchterm):
         """Returns list of requested Component object
         """
-        component_matches = []
+        matching_components = []
         #TODO Check if comp is valid
         for cal in self.calendarset:
             print cal.name
@@ -74,16 +57,14 @@ class iCalStream(object):
                #TODO reference, pls
                 if component.name == comp or (comp == 'ALL' and component.name
                    not in ['VTIMEZONE', 'VALARM']):
-                    #print "Yippie!"
-                    #print component[prop]
                     if component.has_key(prop):
                         if component[prop] == searchterm:
                             print "Matched! ",
                             print "%s>%s:%s" % (cal.name, component.name,
                                                 component[prop])
                             # Add match to list
-                            component_matches.append(component)
-        return component_matches
+                            matching_components.append(component)
+        return matching_components
 
     def _get_username(self):
         """Return username as extracted from the file path.
