@@ -61,8 +61,9 @@ class iCalStream(object):
         return result
 
     def get_component(self, comp, prop, searchterm):
-        """Returns requested Component object
+        """Returns list of requested Component object
         """
+        component_matches = []
         #TODO Check if comp is valid
         for cal in self.calendarset:
             print cal.name
@@ -80,6 +81,9 @@ class iCalStream(object):
                             print "Matched! ",
                             print "%s>%s:%s" % (cal.name, component.name,
                                                 component[prop])
+                            # Add match to list
+                            component_matches.append(component)
+        return component_matches
 
     def _get_username(self):
         """Return username as extracted from the file path.

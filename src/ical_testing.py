@@ -16,10 +16,5 @@ calstore.read_ics(calfile)
 # How many calendars does the file contain?
 print "Nr of calendars in %s: %d" % (calfile, calstore.calendarset.__len__())
 # Print certain component
-calstore.get_component('ALL', 'UID', '1e3d3309-5260-40e9-9001-fea06d1767b4')
-# Print value of property only
-#print calstore.calendarset[0]['uid']
-
-# Address subcomponents
-#activecal = calstore.calendarset[0]
-#print activecal['prodid']
+print calstore.get_component('ALL', 'UID',
+                             '1e3d3309-5260-40e9-9001-fea06d1767b4')
