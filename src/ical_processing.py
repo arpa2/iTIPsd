@@ -19,7 +19,6 @@ class iCalStream(object):
     """Object containing a set of iCalender objects
     """
     username = ''
-    calendarset = []  # Will store Calender objects
 
     def __init__(self, *args, **kwargs):
         """Set keys initial stream properties.
@@ -61,24 +60,26 @@ class iCalStream(object):
             print subcomponent
         return result
 
-    def get_component(self, comp):
+    def get_component(self, comp, prop, searchterm):
         """Returns requested Component object
         """
-        #TODO# create component-object, fill it, return it
+        #TODO Check if comp is valid
         for cal in self.calendarset:
-            print type(cal)
-            self._recurse_component(cal)
-        #    print cal.name
-        #    #print cal.walk()
-#            for component in cal:
-#                print self._recurse_component(component)
-#                print component
-        #        print "\t" + component, self.calendarset[0][component]
-#            for subcomp in cal.subcomponents:
-#                for lol in subcomp:
-#                    print lol
-        #        print subcomp.walk(comp)
-#        return self._getcomponent(comp)
+            print cal.name
+            for component in cal.subcomponents:
+                print component.name
+
+               #TODO hardcoded exclusion (not in), not so nice, use some other
+               #TODO reference, pls
+                if component.name == comp or (comp == 'ALL' and component.name
+                   not in ['VTIMEZONE', 'VALARM']):
+                    #print "Yippie!"
+                    #print component[prop]
+                    if component.has_key(prop):
+                        if component[prop] == searchterm:
+                            print "Matched! ",
+                            print "%s>%s:%s" % (cal.name, component.name,
+                                                component[prop])
 
     def _get_username(self):
         """Return username as extracted from the file path.
